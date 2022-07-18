@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gereral-starter-sample</artifactId>
+    <artifactId>general-starter-sample</artifactId>
 
     <properties>
         <spring-boot.version>2.7.1</spring-boot.version>

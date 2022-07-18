@@ -4,4 +4,58 @@
 
 # starter列表
 
+每个starter的使用方法可参考general-starter-sample模块的示例。
+
 - log-spring-boot-starter：日志记录
+
+# starter使用方法
+
+所有的starter使用，首先需要将general-starter-parent进行导入，代码如下：
+
+```
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>me.cxis</groupId>
+            <artifactId>general-starter-parent</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+## log-spring-boot-starter使用方法
+
+在项目中引入`log-spring-boot-starter`模块：
+
+```
+<dependencies>
+    <dependency>
+        <groupId>me.cxis</groupId>
+        <artifactId>log-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+在配置文件application.yml中启用日志记录功能：
+
+```
+general:
+  starter:
+    log:
+      enable: true
+```
+
+运行项目，尝试调用接口即可看到日志输出，输出日志如下：
+
+```
+2022-07-18 10:54:58.435  INFO 3682 --- [nio-8080-exec-1] me.cxis.starter.log.support.LogFilter    : Request GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1
+2022-07-18 10:54:58.486  INFO 3682 --- [nio-8080-exec-1] me.cxis.starter.log.support.LogFilter    : Response GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1, status=200, payload=log get id: 123
+2022-07-18 10:54:58.677  INFO 3682 --- [nio-8080-exec-2] me.cxis.starter.log.support.LogFilter    : Request GET /favicon.ico, client=0:0:0:0:0:0:0:1, referer=http://localhost:8080/sample/log/get?id=123
+2022-07-18 10:54:58.683  INFO 3682 --- [nio-8080-exec-2] me.cxis.starter.log.support.LogFilter    : Response GET /favicon.ico, client=0:0:0:0:0:0:0:1, referer=http://localhost:8080/sample/log/get?id=123, status=404
+2022-07-18 10:55:59.048  INFO 3682 --- [nio-8080-exec-6] me.cxis.starter.log.support.LogFilter    : Request POST /sample/log/post, client=0:0:0:0:0:0:0:1, payload={"id": 234}
+2022-07-18 10:55:59.113  INFO 3682 --- [nio-8080-exec-6] m.c.s.s.controller.SampleController      : log post, log: LogModel{id=234, content='null'}
+2022-07-18 10:55:59.126  INFO 3682 --- [nio-8080-exec-6] me.cxis.starter.log.support.LogFilter    : Response POST /sample/log/post, client=0:0:0:0:0:0:0:1, status=200, payload={"id":234,"content":null}
+```

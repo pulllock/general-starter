@@ -16,9 +16,9 @@ public class SampleController {
     }
 
     @PostMapping("/log/post")
-    public Long logPost(@RequestBody LogModel log) {
+    public LogModel logPost(@RequestBody LogModel log) {
         LOGGER.info("log post, log: {}", log);
-        return 1L;
+        return log;
     }
 
     static class LogModel {

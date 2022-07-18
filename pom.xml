@@ -14,7 +14,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>log-spring-boot-starter</module>
-        <module>gereral-starter-sample</module>
+        <module>general-starter-sample</module>
     </modules>
     <packaging>pom</packaging>
 

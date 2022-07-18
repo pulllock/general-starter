@@ -37,6 +37,10 @@ public class ContentCachingRequestWrapper extends HttpServletRequestWrapper {
         return new BufferedReader(new InputStreamReader(getInputStream(), getCharacterEncoding()));
     }
 
+    public byte[] getCachedContent() {
+        return cachedContent;
+    }
+
     private static class ContentCachingInputStream extends ServletInputStream {
 
         private final ByteArrayInputStream is;
