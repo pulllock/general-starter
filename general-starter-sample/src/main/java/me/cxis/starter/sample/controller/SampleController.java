@@ -1,8 +1,11 @@
 package me.cxis.starter.sample.controller;
 
+import me.cxis.general.model.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
 
 @RestController
 @RequestMapping("/sample")
@@ -21,7 +24,17 @@ public class SampleController {
         return log;
     }
 
-    static class LogModel {
+    @GetMapping("/model/get")
+    public Result<LogModel> modelGet(@RequestParam Long id) {
+        LogModel logModel = new LogModel();
+        logModel.setId(id);
+
+        Result<LogModel> result = new Result<>();
+        result.setData(logModel);
+        return result;
+    }
+
+    static class LogModel implements Serializable {
         private Long id;
 
         private String content;

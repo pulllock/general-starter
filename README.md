@@ -7,6 +7,7 @@
 每个starter的使用方法可参考general-starter-sample模块的示例。
 
 - log-spring-boot-starter：日志记录
+- general-model-starter：常用的返回值、错误码等模型定义
 
 # starter使用方法
 
@@ -59,3 +60,50 @@ general:
 2022-07-18 10:55:59.113  INFO 3682 --- [nio-8080-exec-6] m.c.s.s.controller.SampleController      : log post, log: LogModel{id=234, content='null'}
 2022-07-18 10:55:59.126  INFO 3682 --- [nio-8080-exec-6] me.cxis.starter.log.support.LogFilter    : Response POST /sample/log/post, client=0:0:0:0:0:0:0:1, status=200, payload={"id":234,"content":null}
 ```
+
+## general-model-starter使用方法
+
+在项目中引入`general-model-starter`模块：
+
+```
+<dependencies>
+    <dependency>
+        <groupId>me.cxis</groupId>
+        <artifactId>general-model-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+在项目中直接引用相关的类即可：
+- 返回值使用`Result`或者`PageResult`进行包装
+- 分页请求参数继承`PageQuery`即可
+- 如果方法返回空，可以使用`Result<Nil>`作为返回值 
+- 自定义项目的`ErrorCode`如下：
+
+```
+public enum ErrorCode implements BaseErrorCode {
+    
+    SYSTEM_ERROR (1, "系统错误")
+    ;
+
+    ErrorCode(int errorCode, String errorMsg) {
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
+    private int errorCode;
+    
+    private String errorMsg;
+    
+    @Override
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    @Override
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+}
+```
+- 如果需要抛出业务异常，请使用：`ServiceException`

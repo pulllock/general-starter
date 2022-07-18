@@ -46,5 +46,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>me.cxis</groupId>
+            <artifactId>general-model-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>
