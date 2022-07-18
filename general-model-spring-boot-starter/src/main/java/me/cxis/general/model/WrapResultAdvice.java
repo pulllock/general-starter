@@ -1,6 +1,5 @@
 package me.cxis.general.model;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * 对返回结果使用{@link Result}进行包装，如果使用了{@link RawResult}注解，则不进行包装。
  */
 @ControllerAdvice
-@ConditionalOnProperty(prefix = "general.starter.wrap", value = {"result"}, havingValue = "true")
 public class WrapResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

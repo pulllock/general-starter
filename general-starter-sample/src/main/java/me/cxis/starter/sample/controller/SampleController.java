@@ -52,7 +52,7 @@ public class SampleController {
         return result;
     }
 
-    @RawResult
+    @RawResult(desc = "该返回值不需要进行包装")
     @GetMapping("/model/wrap/false")
     public LogModel modelNotWrap() {
         LogModel logModel = new LogModel();

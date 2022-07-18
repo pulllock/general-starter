@@ -11,4 +11,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface RawResult {
+
+    /**
+     * 描述
+     * @return
+     */
+    String desc() default "";
 }

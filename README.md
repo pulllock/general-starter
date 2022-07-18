@@ -4,10 +4,11 @@
 
 # starter列表
 
-每个starter的使用方法可参考general-starter-sample模块的示例。
+每个starter的使用方法可参考`general-starter-sample`模块的示例。
 
-- log-spring-boot-starter：日志记录
-- general-model-starter：常用的返回值、错误码等模型定义
+- `log-spring-boot-starter`：日志记录
+- `general-model-starter`：常用的返回值、错误码等模型定义
+- `general-model-spring-boot`：全局返回值包装、全局异常处理，同时集成了`general-model-starter`模块的功能
 
 # starter使用方法
 
@@ -108,3 +109,25 @@ public enum ErrorCode implements BaseErrorCode {
 }
 ```
 - 如果需要抛出业务异常，请使用：`ServiceException`
+
+## general-model-spring-boot-starter
+
+`general-model-spring-boot-starter`会自动引入`general-model-starter`模块的功能，如果引用了`general-model-spring-boot-starter`模块后，可以不用再单独引用`general-model-starter`模块。
+
+在项目中引入`general-model-spring-boot-starter`模块：
+
+```
+<dependencies>
+    <dependency>
+        <groupId>me.cxis</groupId>
+        <artifactId>general-model-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+引入该starter之后，会自动引入以下功能：
+
+- 对返回值使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.result=false`进行关闭
+- 引入全局包装的同时，也会自动将`MappingJackson2HttpMessageConverter`转换器添加到转换器列表最前面，如果全局返回值包装功能关闭，则此功能也会自动关闭掉
+  - 将`MappingJackson2HttpMessageConverter`放到最前面，可以解决方法返回String的时候统一包装报错的问题，另外需要注意，如果方法返回的是String，请在方法上添加`produces = MediaType.APPLICATION_JSON_VALUE`来进行配合使用
+- 会对全局异常进行处理，并使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.exception=false`进行关闭

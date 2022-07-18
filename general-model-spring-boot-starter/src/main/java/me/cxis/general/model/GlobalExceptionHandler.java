@@ -2,7 +2,6 @@ package me.cxis.general.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -12,7 +11,6 @@ import static me.cxis.general.model.CommonErrorCode.SYSTEM_ERROR;
  * 全局异常统一处理，统一将异常包装成{@link Result}返回
  */
 @RestControllerAdvice
-@ConditionalOnProperty(prefix = "general.starter.wrap", value = {"exception"}, havingValue = "true")
 public class GlobalExceptionHandler {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
