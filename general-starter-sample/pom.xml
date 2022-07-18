@@ -51,5 +51,10 @@
             <groupId>me.cxis</groupId>
             <artifactId>general-model-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>me.cxis</groupId>
+            <artifactId>general-model-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -24,4 +24,8 @@ public class ServiceException extends RuntimeException {
     public int getErrorCode() {
         return errorCode;
     }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
 }

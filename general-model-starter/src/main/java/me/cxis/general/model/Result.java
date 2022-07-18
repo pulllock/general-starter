@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 结果
  * @param <T>
  */
-public class Result<T extends Serializable> implements Serializable {
+public class Result<T> implements Serializable {
 
     /**
      * 如果是错误返回，则是具体的错误码；如果是正确的返回，则code=0
@@ -27,6 +27,19 @@ public class Result<T extends Serializable> implements Serializable {
      * 返回的实际数据，如果是错误的，则为null
      */
     private T data;
+
+    public Result() {
+    }
+
+    public Result(T data) {
+        this.data = data;
+    }
+
+    public Result(int code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
 
     public int getCode() {
         return code;

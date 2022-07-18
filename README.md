@@ -77,13 +77,14 @@ general:
 在项目中直接引用相关的类即可：
 - 返回值使用`Result`或者`PageResult`进行包装
 - 分页请求参数继承`PageQuery`即可
-- 如果方法返回空，可以使用`Result<Nil>`作为返回值 
-- 自定义项目的`ErrorCode`如下：
+- 如果方法返回空，可以使用`Result<Nil>`作为返回值
+- 各项目共用的通用的错误码使用：`CommonErrorCode`
+- 自定义项目的`ErrorCode`需要实现接口：`BaseErrorCode`，示例如下：
 
 ```
 public enum ErrorCode implements BaseErrorCode {
     
-    SYSTEM_ERROR (1, "系统错误")
+    USER_NOT_EXIST (10001, "用户不存在")
     ;
 
     ErrorCode(int errorCode, String errorMsg) {

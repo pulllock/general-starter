@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 分页查询结果
  * @param <T>
  */
-public class PageResult <T extends Serializable> extends Result<T> implements Serializable {
+public class PageResult<T extends Serializable> extends Result<T> implements Serializable {
 
     /**
      * 总数

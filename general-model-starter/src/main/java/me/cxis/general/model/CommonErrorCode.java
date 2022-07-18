@@ -1,16 +1,14 @@
-package me.cxis.starter.sample.enums;
-
-import me.cxis.general.model.BaseErrorCode;
+package me.cxis.general.model;
 
 /**
- * 业务错误码
+ * 所有系统共用的通用错误码
  */
-public enum ErrorCode implements BaseErrorCode {
+public enum CommonErrorCode implements BaseErrorCode {
 
-    USER_NOT_EXIST (10001, "用户不存在")
+    SYSTEM_ERROR (1, "系统错误")
     ;
 
-    ErrorCode(int errorCode, String errorMsg) {
+    CommonErrorCode(int errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }
