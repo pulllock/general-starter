@@ -6,7 +6,7 @@
 
 每个starter的使用方法可参考`general-starter-sample`模块的示例。
 
-- `log-spring-boot-starter`：日志记录
+- `log-spring-boot-starter`：日志记录、日志增加traceId实现链路追踪功能
 - `general-model-starter`：常用的返回值、错误码等模型定义
 - `general-model-spring-boot`：全局返回值包装、全局异常处理，同时集成了`general-model-starter`模块的功能
 
@@ -30,7 +30,12 @@
 
 ## log-spring-boot-starter使用方法
 
-在项目中引入`log-spring-boot-starter`模块：
+引入此模块后可以有如下功能：
+
+- 请求响应日志打印，需要在配置中开启
+- traceId功能，默认开启
+
+使用步骤如下，首先在项目中引入`log-spring-boot-starter`模块：
 
 ```
 <dependencies>
@@ -131,3 +136,25 @@ public enum ErrorCode implements BaseErrorCode {
 - 引入全局包装的同时，也会自动将`MappingJackson2HttpMessageConverter`转换器添加到转换器列表最前面，如果全局返回值包装功能关闭，则此功能也会自动关闭掉
   - 将`MappingJackson2HttpMessageConverter`放到最前面，可以解决方法返回String的时候统一包装报错的问题，另外需要注意，如果方法返回的是String，请在方法上添加`produces = MediaType.APPLICATION_JSON_VALUE`来进行配合使用
 - 会对全局异常进行处理，并使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.exception=false`进行关闭
+
+# MDC实现日志追踪（添加traceId）
+
+日志追踪功能的流程如下：
+
+1. 前端生成请求的ID，并添加到请求头中，带到服务端。（这一步可选）
+2. 服务端（网关、请求处理系统）使用过滤器（拦截器）拦截请求，从请求中找到前端带来的请求ID或者创建一个新的请求ID，并将请求ID添加到MDC中
+3. 打印日志
+4. 如果还需要调用其他的服务，比如使用Feign调用或者使用RestTemplate调用，可以使用对应的过滤器（拦截器）设置相应的请求头，将请求ID传递到其他的系统中
+5. 被调用的服务也使用第2步的过滤器（拦截器）来获取请求ID并设置到MDC中
+6. 异步请求、自定义线程池、定时调度等需要自定义配置MDC
+
+## 实现步骤
+
+实现代码可参考`log-spring-boot-starter`模块。
+
+1. 实现`TraceIdUtil`工具类
+2. 实现过滤器`TraceFilter`，添加`TraceId`
+3. 配置`logback.xml`配置文件
+4. `Feign`调用上添加`TraceId`
+5. `RestTemplate`调用上添加`TraceId`
+6. 异步请求、自定义线程池、定时调用
