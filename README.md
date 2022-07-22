@@ -58,14 +58,25 @@ general:
 运行项目，尝试调用接口即可看到日志输出，输出日志如下：
 
 ```
-2022-07-18 10:54:58.435  INFO 3682 --- [nio-8080-exec-1] me.cxis.starter.log.support.LogFilter    : Request GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1
-2022-07-18 10:54:58.486  INFO 3682 --- [nio-8080-exec-1] me.cxis.starter.log.support.LogFilter    : Response GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1, status=200, payload=log get id: 123
-2022-07-18 10:54:58.677  INFO 3682 --- [nio-8080-exec-2] me.cxis.starter.log.support.LogFilter    : Request GET /favicon.ico, client=0:0:0:0:0:0:0:1, referer=http://localhost:8080/sample/log/get?id=123
-2022-07-18 10:54:58.683  INFO 3682 --- [nio-8080-exec-2] me.cxis.starter.log.support.LogFilter    : Response GET /favicon.ico, client=0:0:0:0:0:0:0:1, referer=http://localhost:8080/sample/log/get?id=123, status=404
-2022-07-18 10:55:59.048  INFO 3682 --- [nio-8080-exec-6] me.cxis.starter.log.support.LogFilter    : Request POST /sample/log/post, client=0:0:0:0:0:0:0:1, payload={"id": 234}
-2022-07-18 10:55:59.113  INFO 3682 --- [nio-8080-exec-6] m.c.s.s.controller.SampleController      : log post, log: LogModel{id=234, content='null'}
-2022-07-18 10:55:59.126  INFO 3682 --- [nio-8080-exec-6] me.cxis.starter.log.support.LogFilter    : Response POST /sample/log/post, client=0:0:0:0:0:0:0:1, status=200, payload={"id":234,"content":null}
+2022-07-22 10:35:32.391 INFO [http-nio-8080-exec-2] [8230c21c47964341a5fc072e2ee103b9] me.cxis.starter.log.support.LogFilter.logForRequest[133]: Request GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1
+2022-07-22 10:35:32.393 INFO [http-nio-8080-exec-2] [8230c21c47964341a5fc072e2ee103b9] me.cxis.starter.log.support.LogFilter.logForResponse[98]: Response GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1, status=200, payload=log get id: 123
 ```
+
+日志的格式配置如下：
+
+```
+%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] [%X{traceId}] %logger.%method[%L]: %message%n
+```
+
+- `%date{yyyy-MM-dd HH:mm:ss.SSS}`：日期时间，并指定格式
+- `%level`：日志的等级
+- `%thread`：线程名字
+- `%X{traceId}`：自定义的traceId
+- `%logger`：输出Logger的名称，和`%class`类名类似
+- `%method`：方法名（会对性能有影响）
+- `%L`：行数（会对性能有影响）
+- `%message`：具体的日志消息
+- `%n`：换行
 
 ## general-model-starter使用方法
 
@@ -158,3 +169,16 @@ public enum ErrorCode implements BaseErrorCode {
 4. `Feign`调用上添加`TraceId`
 5. `RestTemplate`调用上添加`TraceId`
 6. 异步请求、自定义线程池、定时调用
+
+# logback格式
+
+- `%lo{length}`、`%logger{length}`：输出日志的名称，length可以指定长度
+- `%C{length}`、`%class{length}`：输出类的全限定名，会对性能有影响
+- `%d{pattern}`、`%date{pattern}`、`%d{pattern, timezone}`、`%date{pattern, timezone}`：输出日期，pattern中指定日期的格式
+- `%L`：行号，会对性能有影响
+- `%m`、`%msg`、`%message`：具体的日志
+- `%M`、`%method`：方法名，会对性能有影响
+- `%n`：换行
+- `%p`、`%le`、`%level`：日志等级
+- `%t`、`%thread`：线程名字
+- `%X{key:-defaultValue}`：输出MDC中自定义的key对应的值

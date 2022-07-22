@@ -17,6 +17,7 @@
         <module>general-starter-sample</module>
         <module>general-model-starter</module>
         <module>general-model-spring-boot-starter</module>
+        <module>web-spring-boot-starter</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -49,6 +50,12 @@
             <dependency>
                 <groupId>me.cxis</groupId>
                 <artifactId>general-model-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>me.cxis</groupId>
+                <artifactId>web-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
