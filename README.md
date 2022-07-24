@@ -9,6 +9,8 @@
 - `log-spring-boot-starter`：日志记录、日志增加traceId实现链路追踪功能
 - `general-model-starter`：常用的返回值、错误码等模型定义
 - `general-model-spring-boot`：全局返回值包装、全局异常处理，同时集成了`general-model-starter`模块的功能
+- `web-spring-boot-starter`：给RestTemplate添加TraceId以及记录请求调用日志
+- `feign-spring-boot-starter`：给使用`Feign`方式的请求添加TraceId
 
 # starter使用方法
 
@@ -186,7 +188,7 @@ public enum ErrorCode implements BaseErrorCode {
 
 引入该starter之后，会自动引入以下功能：
 
-会针对使用了`@FeignClient`方式的请求自动添加TraceId。
+会针对使用了`Feign`方式的请求自动添加TraceId。
 
 # MDC实现日志追踪（添加traceId）
 
