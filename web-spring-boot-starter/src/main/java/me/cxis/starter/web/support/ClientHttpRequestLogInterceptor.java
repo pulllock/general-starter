@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 拦截RequestTemplate的请求，打印日志
  */
-@Order(0)
+@Order(1)
 public class ClientHttpRequestLogInterceptor implements ClientHttpRequestInterceptor {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ClientHttpRequestLogInterceptor.class);

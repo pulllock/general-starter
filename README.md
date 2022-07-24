@@ -165,7 +165,28 @@ public enum ErrorCode implements BaseErrorCode {
 
 引入该starter之后，会自动引入以下功能：
 
-如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭
+如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭。
+
+如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`me.cxis.starter.web.support.ClientHttpRequestTraceIdInterceptor`以及`me.cxis.starter.web.support.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
+
+## feign-spring-boot-starter
+
+`feign-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
+
+在项目中引入`web-spring-boot-starter`模块：
+
+```
+<dependencies>
+    <dependency>
+        <groupId>me.cxis</groupId>
+        <artifactId>feign-model-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+引入该starter之后，会自动引入以下功能：
+
+会针对使用了`@FeignClient`方式的请求自动添加TraceId。
 
 # MDC实现日志追踪（添加traceId）
 
