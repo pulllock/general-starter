@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>general-starter-sample</artifactId>
+    <artifactId>general-starter-sample-server</artifactId>
 
     <properties>
         <spring-boot.version>2.7.1</spring-boot.version>
@@ -56,10 +56,6 @@
             <groupId>me.cxis</groupId>
             <artifactId>general-model-spring-boot-starter</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>me.cxis</groupId>
-            <artifactId>web-spring-boot-starter</artifactId>
-        </dependency>
     </dependencies>
+
 </project>

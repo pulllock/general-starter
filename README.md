@@ -148,6 +148,25 @@ public enum ErrorCode implements BaseErrorCode {
   - 将`MappingJackson2HttpMessageConverter`放到最前面，可以解决方法返回String的时候统一包装报错的问题，另外需要注意，如果方法返回的是String，请在方法上添加`produces = MediaType.APPLICATION_JSON_VALUE`来进行配合使用
 - 会对全局异常进行处理，并使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.exception=false`进行关闭
 
+## web-spring-boot-starter
+
+`web-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
+
+在项目中引入`web-spring-boot-starter`模块：
+
+```
+<dependencies>
+    <dependency>
+        <groupId>me.cxis</groupId>
+        <artifactId>web-model-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+引入该starter之后，会自动引入以下功能：
+
+如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭
+
 # MDC实现日志追踪（添加traceId）
 
 日志追踪功能的流程如下：

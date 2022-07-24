@@ -7,7 +7,9 @@ import me.cxis.starter.sample.enums.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 
 @RestController
@@ -15,6 +17,9 @@ import java.io.Serializable;
 public class SampleController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
+
+    @Resource
+    private RestTemplate restTemplate;
 
     /**
      * 日志打印示例
@@ -70,6 +75,17 @@ public class SampleController {
     @GetMapping("/model/exception")
     public LogModel exceptionWrap() {
         throw new ServiceException(ErrorCode.USER_NOT_EXIST);
+    }
+
+    /**
+     * 日志打印示例
+     * @param id
+     * @return
+     */
+    @GetMapping("/log/rest/template/get")
+    public Long logRestGet(@RequestParam Long id) {
+        Long result = restTemplate.getForObject("http://localhost:8081/sample/server/log/get?id=" + id, Long.class);
+        return result;
     }
 
     static class LogModel implements Serializable {
