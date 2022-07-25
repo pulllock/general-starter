@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 拦截RequestTemplate的请求，打印日志
+ * 拦截RestTemplate的请求，打印日志
  */
 @Order(1)
 public class ClientHttpRequestLogInterceptor implements ClientHttpRequestInterceptor {
@@ -37,11 +37,6 @@ public class ClientHttpRequestLogInterceptor implements ClientHttpRequestInterce
         msg.append("Response ");
         msg.append(request.getMethod()).append(' ');
         msg.append(request.getURI());
-
-        /*String queryString = request.getQueryString();
-        if (queryString != null) {
-            msg.append('?').append(queryString);
-        }*/
 
         String ip = getIp(request);
         if (StringUtils.hasLength(ip)) {
@@ -68,11 +63,6 @@ public class ClientHttpRequestLogInterceptor implements ClientHttpRequestInterce
         msg.append(request.getMethod()).append(' ');
         msg.append(request.getURI());
 
-        /*String queryString = request.getQueryString();
-        if (queryString != null) {
-            msg.append('?').append(queryString);
-        }*/
-
         String ip = getIp(request);
         if (StringUtils.hasLength(ip)) {
             msg.append(", client=").append(ip);
@@ -97,7 +87,6 @@ public class ClientHttpRequestLogInterceptor implements ClientHttpRequestInterce
             return xff.split(",")[0];
         }
 
-        // return request.getRemoteAddr();
         return null;
     }
 

@@ -10,7 +10,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import java.io.IOException;
 
 /**
- * 拦截RequestTemplate的请求，在请求头中添加traceId
+ * 拦截RestTemplate的请求，在请求头中添加traceId
  */
 @Order(0)
 public class ClientHttpRequestTraceIdInterceptor implements ClientHttpRequestInterceptor {
