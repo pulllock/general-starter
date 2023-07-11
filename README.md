@@ -1,8 +1,8 @@
-# 说明
+# 1 说明
 
 包含了一些常用的自定义的starter，使用的时候可以将本项目作为POM导入，并选择合适的start进行引入使用。该项目使用[https://github.com/dachengxi/parent-pom](https://github.com/dachengxi/parent-pom)作为父模块，可以根据实际需要选择保留或者去除，使用前请先将parent-pom发布到仓库中。
 
-# starter列表
+# 2 starter列表
 
 每个starter的使用方法可参考`general-starter-sample`模块的示例。
 
@@ -12,7 +12,7 @@
 - `web-spring-boot-starter`：给RestTemplate添加TraceId以及记录请求调用日志
 - `feign-spring-boot-starter`：给使用`Feign`方式的请求添加TraceId
 
-# starter使用方法
+# 3 starter使用方法
 
 所有的starter使用，首先需要将general-starter-parent进行导入，代码如下：
 
@@ -30,7 +30,7 @@
 </dependencyManagement>
 ```
 
-## log-spring-boot-starter使用方法
+## 3.1 log-spring-boot-starter使用方法
 
 引入此模块后可以有如下功能：
 
@@ -81,7 +81,7 @@ general:
 - `%message`：具体的日志消息
 - `%n`：换行
 
-## general-model-starter使用方法
+## 3.2 general-model-starter使用方法
 
 在项目中引入`general-model-starter`模块：
 
@@ -129,7 +129,7 @@ public enum ErrorCode implements BaseErrorCode {
 ```
 - 如果需要抛出业务异常，请使用：`ServiceException`
 
-## general-model-spring-boot-starter
+## 3.3 general-model-spring-boot-starter
 
 `general-model-spring-boot-starter`会自动引入`general-model-starter`模块的功能，如果引用了`general-model-spring-boot-starter`模块后，可以不用再单独引用`general-model-starter`模块。
 
@@ -151,7 +151,7 @@ public enum ErrorCode implements BaseErrorCode {
   - 将`MappingJackson2HttpMessageConverter`放到最前面，可以解决方法返回String的时候统一包装报错的问题，另外需要注意，如果方法返回的是String，请在方法上添加`produces = MediaType.APPLICATION_JSON_VALUE`来进行配合使用
 - 会对全局异常进行处理，并使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.exception=false`进行关闭
 
-## web-spring-boot-starter
+## 3.4 web-spring-boot-starter
 
 `web-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
 
@@ -172,7 +172,7 @@ public enum ErrorCode implements BaseErrorCode {
 
 如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`me.cxis.starter.web.support.ClientHttpRequestTraceIdInterceptor`以及`me.cxis.starter.web.support.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
 
-## feign-spring-boot-starter
+## 3.5 feign-spring-boot-starter
 
 `feign-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
 
@@ -187,11 +187,18 @@ public enum ErrorCode implements BaseErrorCode {
 </dependencies>
 ```
 
-引入该starter之后，会自动引入以下功能：
+引入该starter之后，在配置文件application.yml中启用trace id功能：
 
-会针对使用了`Feign`方式的请求自动添加TraceId。
+```
+general:
+  starter:
+    feign:
+      trace-enable: true
+```
 
-# MDC实现日志追踪（添加traceId）
+会针对使用了`Feign`方式的请求在请求头中自动添加TraceId。
+
+# 4 MDC实现日志追踪（添加traceId）
 
 日志追踪功能的流程如下：
 
@@ -202,7 +209,7 @@ public enum ErrorCode implements BaseErrorCode {
 5. 被调用的服务也使用第2步的过滤器（拦截器）来获取请求ID并设置到MDC中
 6. 异步请求、自定义线程池、定时调度等需要自定义配置MDC
 
-## 实现步骤
+## 4.1 实现步骤
 
 实现代码可参考`log-spring-boot-starter`模块。
 
@@ -213,7 +220,7 @@ public enum ErrorCode implements BaseErrorCode {
 5. `RestTemplate`调用上添加`TraceId`
 6. 异步请求、自定义线程池、定时调用
 
-# logback格式
+# 5 logback格式
 
 - `%lo{length}`、`%logger{length}`：输出日志的名称，length可以指定长度
 - `%C{length}`、`%class{length}`：输出类的全限定名，会对性能有影响

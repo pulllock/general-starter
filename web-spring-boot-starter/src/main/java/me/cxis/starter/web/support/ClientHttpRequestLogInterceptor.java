@@ -47,7 +47,7 @@ public class ClientHttpRequestLogInterceptor implements ClientHttpRequestInterce
         if (StringUtils.hasLength(referer)) {
             msg.append(", referer=").append(referer);
         }
-        msg.append(", status=").append(response.getRawStatusCode());
+        msg.append(", status=").append(response.getStatusCode());
 
         String payload = getResponseMessagePayload(response);
         if (payload != null) {

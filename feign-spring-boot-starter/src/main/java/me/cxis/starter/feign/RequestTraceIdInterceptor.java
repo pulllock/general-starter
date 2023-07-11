@@ -8,7 +8,6 @@ import org.springframework.core.annotation.Order;
 /**
  * Feign调用添加TraceId
  */
-@Order(0)
 public class RequestTraceIdInterceptor implements RequestInterceptor {
 
     @Override

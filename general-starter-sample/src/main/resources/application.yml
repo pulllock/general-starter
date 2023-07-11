@@ -2,3 +2,5 @@ general:
   starter:
     log:
       enable: true
+    feign:
+      trace-enable: true

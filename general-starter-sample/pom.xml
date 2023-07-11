@@ -11,21 +11,8 @@
 
     <artifactId>general-starter-sample</artifactId>
 
-    <properties>
-        <spring-boot.version>2.7.1</spring-boot.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <dependency>
                 <groupId>me.cxis</groupId>
                 <artifactId>general-starter-parent</artifactId>
@@ -60,6 +47,11 @@
         <dependency>
             <groupId>me.cxis</groupId>
             <artifactId>web-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>me.cxis</groupId>
+            <artifactId>feign-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,5 +1,6 @@
 package me.cxis.starter.sample.controller;
 
+import jakarta.annotation.Resource;
 import me.cxis.general.model.RawResult;
 import me.cxis.general.model.Result;
 import me.cxis.general.model.ServiceException;
@@ -9,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 
 @RestController
