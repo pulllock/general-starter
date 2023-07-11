@@ -20,6 +20,7 @@
         <module>web-spring-boot-starter</module>
         <module>general-starter-sample-server</module>
         <module>feign-spring-boot-starter</module>
+        <module>json-starter</module>
     </modules>
     <packaging>pom</packaging>
 

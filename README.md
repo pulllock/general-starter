@@ -11,6 +11,7 @@
 - `general-model-spring-boot`：全局返回值包装、全局异常处理，同时集成了`general-model-starter`模块的功能
 - `web-spring-boot-starter`：给RestTemplate添加TraceId以及记录请求调用日志
 - `feign-spring-boot-starter`：给使用`Feign`方式的请求添加TraceId
+- `json-starter`：基于Jackson的Json工具类，统一日期的序列化和反序列化格式等
 
 # 3 starter使用方法
 
@@ -210,6 +211,21 @@ general:
 ```
 
 会针对使用了`Feign`方式的请求在请求头中自动添加TraceId。
+
+## 3.5 json-starter
+
+在项目中引入`json-starter`模块：
+
+```
+<dependencies>
+    <dependency>
+        <groupId>me.cxis</groupId>
+        <artifactId>json-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+引入该starter之后，在项目代码中直接使用`Json.xxxx()`对应方法即可。
 
 # 4 MDC实现日志追踪（添加traceId）
 
