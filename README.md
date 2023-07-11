@@ -95,6 +95,7 @@ general:
 ```
 
 在项目中直接引用相关的类即可：
+
 - 返回值使用`Result`或者`PageResult`进行包装
 - 分页请求参数继承`PageQuery`即可
 - 如果方法返回空，可以使用`Result<Nil>`作为返回值
@@ -103,7 +104,7 @@ general:
 
 ```
 public enum ErrorCode implements BaseErrorCode {
-    
+
     USER_NOT_EXIST (10001, "用户不存在")
     ;
 
@@ -113,9 +114,9 @@ public enum ErrorCode implements BaseErrorCode {
     }
 
     private int errorCode;
-    
+
     private String errorMsg;
-    
+
     @Override
     public int getErrorCode() {
         return errorCode;
@@ -127,6 +128,7 @@ public enum ErrorCode implements BaseErrorCode {
     }
 }
 ```
+
 - 如果需要抛出业务异常，请使用：`ServiceException`
 
 ## 3.3 general-model-spring-boot-starter
