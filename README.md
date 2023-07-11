@@ -182,9 +182,8 @@ public enum ErrorCode implements BaseErrorCode {
 
 引入该starter之后，会自动引入以下功能：
 
-如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭。
-
-如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`me.cxis.starter.web.support.ClientHttpRequestTraceIdInterceptor`以及`me.cxis.starter.web.support.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
+- 如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭。 如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`me.cxis.starter.web.support.ClientHttpRequestTraceIdInterceptor`以及`me.cxis.starter.web.support.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
+- 自定义Jackson对LocalDateTime的序列化和反序列化格式，由默认的`yyyy-MM-ddTHH:mm:ss`修改为`yyyy-MM-dd HH:mm:ss`
 
 ## 3.5 feign-spring-boot-starter
 
