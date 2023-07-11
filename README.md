@@ -35,7 +35,7 @@
 引入此模块后可以有如下功能：
 
 - 请求响应日志打印，需要在配置中开启
-- traceId功能，默认开启
+- traceId功能，需要在配置中开启
 - 可引入一个`MdcTaskDecorator`，可在自定义线程池的时候指定该装饰器，用以将线程上下文传递到子线程中
 
 使用步骤如下，首先在项目中引入`log-spring-boot-starter`模块：
@@ -80,6 +80,17 @@ general:
 - `%L`：行数（会对性能有影响）
 - `%message`：具体的日志消息
 - `%n`：换行
+
+在配置文件application.yml中启用trace id功能：
+
+```
+general:
+  starter:
+    log:
+      trace-enable: true
+```
+
+会在日志中自动添加TraceId。
 
 ## 3.2 general-model-starter使用方法
 

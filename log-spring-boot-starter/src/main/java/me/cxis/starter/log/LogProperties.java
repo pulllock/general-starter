@@ -11,11 +11,24 @@ public class LogProperties {
      */
     private boolean enable = false;
 
+    /**
+     * 是否启用traceId
+     */
+    private boolean traceEnable = false;
+
     public boolean isEnable() {
         return enable;
     }
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public boolean isTraceEnable() {
+        return traceEnable;
+    }
+
+    public void setTraceEnable(boolean traceEnable) {
+        this.traceEnable = traceEnable;
     }
 }

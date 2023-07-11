@@ -20,6 +20,7 @@ public class LogAutoConfiguration {
      * @return
      */
     @Bean
+    @ConditionalOnProperty(prefix = "general.starter.log", value = {"trace-enable"}, havingValue = "true")
     public TraceIdFilter traceIdFilter() {
         LOGGER.info("general starter trace enabled");
         return new TraceIdFilter();

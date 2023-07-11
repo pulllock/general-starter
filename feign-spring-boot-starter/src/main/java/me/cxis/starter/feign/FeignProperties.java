@@ -8,7 +8,7 @@ public class FeignProperties {
     /**
      * 是否启用traceId
      */
-    private boolean traceEnable;
+    private boolean traceEnable = false;
 
     public boolean isTraceEnable() {
         return traceEnable;
