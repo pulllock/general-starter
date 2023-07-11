@@ -1,3 +1,20 @@
+<!-- TOC -->
+
+* [1 说明](#1-说明)
+* [2 starter列表](#2-starter列表)
+* [3 starter使用方法](#3-starter使用方法)
+  * [3.1 log-spring-boot-starter使用方法](#31-log-spring-boot-starter使用方法)
+  * [3.2 general-model-starter使用方法](#32-general-model-starter使用方法)
+  * [3.3 general-model-spring-boot-starter](#33-general-model-spring-boot-starter)
+  * [3.4 web-spring-boot-starter](#34-web-spring-boot-starter)
+  * [3.5 feign-spring-boot-starter](#35-feign-spring-boot-starter)
+  * [3.5 json-starter](#35-json-starter)
+* [4 MDC实现日志追踪（添加traceId）](#4-mdc实现日志追踪添加traceid)
+  * [4.1 实现步骤](#41-实现步骤)
+* [5 logback格式](#5-logback格式)
+  
+  <!-- TOC -->
+
 # 1 说明
 
 包含了一些常用的自定义的starter，使用的时候可以将本项目作为POM导入，并选择合适的start进行引入使用。该项目使用[https://github.com/dachengxi/parent-pom](https://github.com/dachengxi/parent-pom)作为父模块，可以根据实际需要选择保留或者去除，使用前请先将parent-pom发布到仓库中。
