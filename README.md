@@ -17,7 +17,7 @@
 
 # 1 说明
 
-包含了一些常用的自定义的starter，使用的时候可以将本项目作为POM导入，并选择合适的start进行引入使用。该项目使用[https://github.com/dachengxi/parent-pom](https://github.com/dachengxi/parent-pom)作为父模块，可以根据实际需要选择保留或者去除，使用前请先将parent-pom发布到仓库中。
+包含了一些常用的自定义的starter，使用的时候可以将本项目作为POM导入，并选择合适的start进行引入使用。该项目使用[https://github.com/pulllock/parent-pom](https://github.com/pulllock/parent-pom)作为父模块，可以根据实际需要选择保留或者去除，使用前请先将parent-pom发布到仓库中。
 
 # 2 starter列表
 
@@ -38,7 +38,7 @@
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>me.cxis</groupId>
+            <groupId>fun.pullock</groupId>
             <artifactId>general-starter-parent</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
@@ -61,7 +61,7 @@
 ```
 <dependencies>
     <dependency>
-        <groupId>me.cxis</groupId>
+        <groupId>fun.pullock</groupId>
         <artifactId>log-spring-boot-starter</artifactId>
     </dependency>
 </dependencies>
@@ -79,8 +79,8 @@ general:
 运行项目，尝试调用接口即可看到日志输出，输出日志如下：
 
 ```
-2022-07-22 10:35:32.391 INFO [http-nio-8080-exec-2] [8230c21c47964341a5fc072e2ee103b9] me.cxis.starter.log.support.LogFilter.logForRequest[133]: Request GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1
-2022-07-22 10:35:32.393 INFO [http-nio-8080-exec-2] [8230c21c47964341a5fc072e2ee103b9] me.cxis.starter.log.support.LogFilter.logForResponse[98]: Response GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1, status=200, payload=log get id: 123
+2022-07-22 10:35:32.391 INFO [http-nio-8080-exec-2] [8230c21c47964341a5fc072e2ee103b9] support.log.starter.fun.pullock.LogFilter.logForRequest[133]: Request GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1
+2022-07-22 10:35:32.393 INFO [http-nio-8080-exec-2] [8230c21c47964341a5fc072e2ee103b9] support.log.starter.fun.pullock.LogFilter.logForResponse[98]: Response GET /sample/log/get?id=123, client=0:0:0:0:0:0:0:1, status=200, payload=log get id: 123
 ```
 
 日志的格式配置如下：
@@ -117,7 +117,7 @@ general:
 ```
 <dependencies>
     <dependency>
-        <groupId>me.cxis</groupId>
+        <groupId>fun.pullock</groupId>
         <artifactId>general-model-starter</artifactId>
     </dependency>
 </dependencies>
@@ -169,7 +169,7 @@ public enum ErrorCode implements BaseErrorCode {
 ```
 <dependencies>
     <dependency>
-        <groupId>me.cxis</groupId>
+        <groupId>fun.pullock</groupId>
         <artifactId>general-model-spring-boot-starter</artifactId>
     </dependency>
 </dependencies>
@@ -191,7 +191,7 @@ public enum ErrorCode implements BaseErrorCode {
 ```
 <dependencies>
     <dependency>
-        <groupId>me.cxis</groupId>
+        <groupId>fun.pullock</groupId>
         <artifactId>web-model-spring-boot-starter</artifactId>
     </dependency>
 </dependencies>
@@ -199,7 +199,7 @@ public enum ErrorCode implements BaseErrorCode {
 
 引入该starter之后，会自动引入以下功能：
 
-- 如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭。 如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`me.cxis.starter.web.support.ClientHttpRequestTraceIdInterceptor`以及`me.cxis.starter.web.support.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
+- 如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭。 如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`support.web.starter.fun.pullock.ClientHttpRequestTraceIdInterceptor`以及`support.web.starter.fun.pullock.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
 - 自定义Jackson对LocalDateTime的序列化和反序列化格式，由默认的`yyyy-MM-ddTHH:mm:ss`修改为`yyyy-MM-dd HH:mm:ss`
 
 ## 3.5 feign-spring-boot-starter
@@ -211,7 +211,7 @@ public enum ErrorCode implements BaseErrorCode {
 ```
 <dependencies>
     <dependency>
-        <groupId>me.cxis</groupId>
+        <groupId>fun.pullock</groupId>
         <artifactId>feign-model-spring-boot-starter</artifactId>
     </dependency>
 </dependencies>
@@ -235,7 +235,7 @@ general:
 ```
 <dependencies>
     <dependency>
-        <groupId>me.cxis</groupId>
+        <groupId>fun.pullock</groupId>
         <artifactId>json-starter</artifactId>
     </dependency>
 </dependencies>
