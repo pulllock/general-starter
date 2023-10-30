@@ -5,7 +5,7 @@ package fun.pullock.general.model;
  */
 public enum CommonErrorCode implements BaseErrorCode {
 
-    SYSTEM_ERROR (1, "系统错误")
+    SYSTEM_ERROR (500, "系统错误")
     ;
 
     CommonErrorCode(int errorCode, String errorMsg) {
