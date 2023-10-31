@@ -15,7 +15,9 @@ import org.springframework.web.util.WebUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 /**
@@ -165,12 +167,7 @@ public class LogFilter extends OncePerRequestFilter {
             byte[] buf = wrapper.getContentAsByteArray();
             if (buf.length > 0) {
                 int length = buf.length;
-                try {
-                    return new String(buf, 0, length, wrapper.getCharacterEncoding());
-                }
-                catch (UnsupportedEncodingException ex) {
-                    return "[unknown]";
-                }
+                return new String(buf, 0, length, UTF_8);
             }
         }
         return null;
