@@ -5,6 +5,7 @@ package fun.pullock.general.model;
  */
 public enum CommonErrorCode implements BaseErrorCode {
 
+    UNAUTHORIZED (401, "未授权的请求"),
     SYSTEM_ERROR (500, "系统错误")
     ;
 
