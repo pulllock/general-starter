@@ -217,13 +217,23 @@ public enum ErrorCode implements BaseErrorCode {
 </dependencies>
 ```
 
-引入该starter之后，在配置文件application.yml中启用trace id功能：
+引入该starter之后，自动开启trace id功能，如果需要关闭该功能，需要在配置文件application.yml中禁用trace id功能：
 
-```
+```yaml
 general:
   starter:
     feign:
-      trace-enable: true
+      trace:
+        enable: false
+```
+
+如果想要禁用feign-spring-boot-starter功能，需要在application.yml中禁用：
+
+```yaml
+general:
+  starter:
+    feign:
+        enable: false
 ```
 
 会针对使用了`Feign`方式的请求在请求头中自动添加TraceId。

@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@ConditionalOnProperty(prefix = "general.starter.feign", name = "enabled", havingValue = "true", matchIfMissing = true)
 @Configuration
 @EnableConfigurationProperties(FeignProperties.class)
 public class FeignAutoConfiguration {
@@ -14,9 +15,9 @@ public class FeignAutoConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(FeignProperties.class);
 
     @Bean
-    @ConditionalOnProperty(prefix = "general.starter.feign", value = {"trace-enable"}, havingValue = "true")
+    @ConditionalOnProperty(prefix = "general.starter.feign", value = {"trace.enabled"}, havingValue = "true", matchIfMissing = true)
     public RequestTraceIdInterceptor requestTraceIdInterceptor() {
-        LOGGER.info("general starter feign request trace id interceptor enabled");
+        LOGGER.info("General starter feign request trace id interceptor enabled");
         return new RequestTraceIdInterceptor();
     }
 }
