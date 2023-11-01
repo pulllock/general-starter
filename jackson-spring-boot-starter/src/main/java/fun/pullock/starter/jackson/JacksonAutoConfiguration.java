@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.format.DateTimeFormatter;
 
-@ConditionalOnProperty(prefix = "general.starter.jackson", name = "enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "general.starter.jackson", name = "enabled", havingValue = "true", matchIfMissing = true)
 @Configuration
 @EnableConfigurationProperties(JacksonProperties.class)
 public class JacksonAutoConfiguration {

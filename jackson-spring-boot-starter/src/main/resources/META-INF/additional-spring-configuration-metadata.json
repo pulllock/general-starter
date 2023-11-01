@@ -3,7 +3,7 @@
   ],
   "properties": [
     {
-      "name": "general.starter.jackson.enable",
+      "name": "general.starter.jackson.enabled",
       "type": "java.lang.Boolean",
       "description": "是否启用jackson-spring-boot-starter功能.",
       "defaultValue": true
