@@ -1,5 +1,4 @@
 <!-- TOC -->
-
 * [1 说明](#1-说明)
 * [2 starter列表](#2-starter列表)
 * [3 starter使用方法](#3-starter使用方法)
@@ -9,11 +8,11 @@
   * [3.4 web-spring-boot-starter](#34-web-spring-boot-starter)
   * [3.5 feign-spring-boot-starter](#35-feign-spring-boot-starter)
   * [3.5 json-starter](#35-json-starter)
+  * [3.6 jackson-spring-boot-starter](#36-jackson-spring-boot-starter)
 * [4 MDC实现日志追踪（添加traceId）](#4-mdc实现日志追踪添加traceid)
   * [4.1 实现步骤](#41-实现步骤)
 * [5 logback格式](#5-logback格式)
-  
-  <!-- TOC -->
+<!-- TOC -->
 
 # 1 说明
 
@@ -29,6 +28,7 @@
 - `web-spring-boot-starter`：给RestTemplate添加TraceId以及记录请求调用日志
 - `feign-spring-boot-starter`：给使用`Feign`方式的请求添加TraceId
 - `json-starter`：基于Jackson的Json工具类，统一日期的序列化和反序列化格式等
+- `jackson-spring-boot-starter`：自定义使用Jackson序列化和反序列化格式等
 
 # 3 starter使用方法
 
@@ -242,6 +242,41 @@ general:
 ```
 
 引入该starter之后，在项目代码中直接使用`Json.xxxx()`对应方法即可。
+
+## 3.6 jackson-spring-boot-starter
+
+引入此模块后可以有以下功能：
+
+- 自动修改JSON序列化和反序列化时日期的格式，`LocalDateTime`格式为`yyyy-MM-dd HH:mm:ss`，`LocalDate`格式为`yyyy-MM-dd`
+
+使用步骤如下，首先在项目中引入`jackson-spring-boot-starter`模块：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>fun.pullock</groupId>
+        <artifactId>jackson-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+引入模块后，无需任何配置，默认自动开启功能，如果引入模块之后需要关闭该功能，在配置文件application.yml中配置：
+
+```yaml
+general:
+  starter:
+    jackson:
+      enable: false
+```
+
+如需指定LocalDateTime和LocalDate的格式，在配置文件application.yml中配置：
+
+```yaml
+general:
+    jackson:
+      local-date-time-pattern: yyyy-MM-dd HH:mm:ss
+      local-date-pattern: yyyy-MM-dd
+```
 
 # 4 MDC实现日志追踪（添加traceId）
 
