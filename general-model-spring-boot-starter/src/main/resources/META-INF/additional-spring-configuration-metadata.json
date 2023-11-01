@@ -1,0 +1,18 @@
+{
+  "groups": [
+  ],
+  "properties": [
+    {
+      "name": "general.starter.wrap.exception",
+      "type": "java.lang.Boolean",
+      "description": "是否启用全局异常处理.",
+      "defaultValue": true
+    },
+    {
+      "name": "general.starter.wrap.result",
+      "type": "java.lang.Boolean",
+      "description": "是否启用全局结果包装.",
+      "defaultValue": true
+    }
+  ]
+}
