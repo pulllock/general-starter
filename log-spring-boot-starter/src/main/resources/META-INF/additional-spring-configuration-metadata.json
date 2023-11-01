@@ -1,0 +1,18 @@
+{
+  "groups": [
+  ],
+  "properties": [
+    {
+      "name": "general.starter.log.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用日志.",
+      "defaultValue": true
+    },
+    {
+      "name": "general.starter.log.trace.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用trace id功能.",
+      "defaultValue": true
+    }
+  ]
+}

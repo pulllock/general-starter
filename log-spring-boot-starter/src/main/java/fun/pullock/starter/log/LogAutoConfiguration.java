@@ -20,9 +20,9 @@ public class LogAutoConfiguration {
      * @return
      */
     @Bean
-    @ConditionalOnProperty(prefix = "general.starter.log", value = {"trace-enable"}, havingValue = "true")
+    @ConditionalOnProperty(prefix = "general.starter.log", value = {"trace.enabled"}, havingValue = "true", matchIfMissing = true)
     public TraceIdFilter traceIdFilter() {
-        LOGGER.info("general starter trace enabled");
+        LOGGER.info("General starter trace enabled");
         return new TraceIdFilter();
     }
 
@@ -31,9 +31,9 @@ public class LogAutoConfiguration {
      * @return
      */
     @Bean
-    @ConditionalOnProperty(prefix = "general.starter.log", value = {"enable"}, havingValue = "true")
+    @ConditionalOnProperty(prefix = "general.starter.log", value = {"enabled"}, havingValue = "true", matchIfMissing = true)
     public LogFilter logFilter() {
-        LOGGER.info("general starter log enabled");
+        LOGGER.info("General starter log enabled");
         return new LogFilter();
     }
 }

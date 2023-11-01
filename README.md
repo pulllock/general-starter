@@ -52,13 +52,13 @@
 
 引入此模块后可以有如下功能：
 
-- 请求响应日志打印，需要在配置中开启
-- traceId功能，需要在配置中开启
+- 请求响应日志打印，自动开启
+- traceId功能，自动开启
 - 可引入一个`MdcTaskDecorator`，可在自定义线程池的时候指定该装饰器，用以将线程上下文传递到子线程中
 
 使用步骤如下，首先在项目中引入`log-spring-boot-starter`模块：
 
-```
+```xml
 <dependencies>
     <dependency>
         <groupId>fun.pullock</groupId>
@@ -67,13 +67,13 @@
 </dependencies>
 ```
 
-在配置文件application.yml中启用日志记录功能：
+可以在配置文件application.yml中禁用日志记录功能：
 
-```
+```yaml
 general:
   starter:
     log:
-      enable: true
+      enabled: false
 ```
 
 运行项目，尝试调用接口即可看到日志输出，输出日志如下：
@@ -99,13 +99,14 @@ general:
 - `%message`：具体的日志消息
 - `%n`：换行
 
-在配置文件application.yml中启用trace id功能：
+可以在配置文件application.yml中禁用trace id功能：
 
-```
+```yaml
 general:
   starter:
     log:
-      trace-enable: true
+      trace:
+        enabled: false
 ```
 
 会在日志中自动添加TraceId。
