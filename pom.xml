@@ -83,6 +83,12 @@
                 <artifactId>jackson-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
+                <artifactId>json-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
