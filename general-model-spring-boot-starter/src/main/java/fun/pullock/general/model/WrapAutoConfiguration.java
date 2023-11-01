@@ -1,5 +1,7 @@
 package fun.pullock.general.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,6 +17,8 @@ import java.util.List;
 @EnableConfigurationProperties(WrapProperties.class)
 public class WrapAutoConfiguration {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(WrapAutoConfiguration.class);
+
     /**
      * 注册全局异常处理器，如果已经存在了同名的全局异常处理器，则不进行注册。
      * @return
@@ -23,6 +27,7 @@ public class WrapAutoConfiguration {
     @ConditionalOnProperty(prefix = "general.starter.wrap", value = {"exception"}, havingValue = "true", matchIfMissing = true)
     @ConditionalOnMissingBean(GlobalExceptionHandler.class)
     public GlobalExceptionHandler globalExceptionHandler() {
+        LOGGER.info("General global exception handler enabled");
         return new GlobalExceptionHandler();
     }
 
@@ -34,6 +39,7 @@ public class WrapAutoConfiguration {
     @ConditionalOnProperty(prefix = "general.starter.wrap", value = {"result"}, havingValue = "true", matchIfMissing = true)
     @ConditionalOnMissingBean(WrapResultAdvice.class)
     public WrapResultAdvice wrapResultAdvice() {
+        LOGGER.info("General wrap result advice enabled");
         return new WrapResultAdvice();
     }
 
@@ -48,6 +54,7 @@ public class WrapAutoConfiguration {
     @Bean
     @ConditionalOnProperty(prefix = "general.starter.wrap", value = {"result"}, havingValue = "true", matchIfMissing = true)
     public WebMvcConfigurer mappingJackson2HttpMessageConverterConfigure(MappingJackson2HttpMessageConverter converter) {
+        LOGGER.info("General add MappingJackson2HttpMessageConverter enabled");
         return new WebMvcConfigurer() {
             @Override
             public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
