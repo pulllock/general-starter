@@ -224,7 +224,7 @@ general:
   starter:
     feign:
       trace:
-        enable: false
+        enabled: false
 ```
 
 如果想要禁用feign-spring-boot-starter功能，需要在application.yml中禁用：
@@ -233,7 +233,7 @@ general:
 general:
   starter:
     feign:
-        enable: false
+        enabled: false
 ```
 
 会针对使用了`Feign`方式的请求在请求头中自动添加TraceId。
@@ -276,7 +276,7 @@ general:
 general:
   starter:
     jackson:
-      enable: false
+      enabled: false
 ```
 
 如需指定LocalDateTime和LocalDate的格式，在配置文件application.yml中配置：
