@@ -11,17 +11,21 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import fun.pullock.gneral.constant.JacksonConfigDefinition;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static fun.pullock.gneral.constant.JacksonConfigDefinition.LOCAL_DATE_PATTERN;
+import static fun.pullock.gneral.constant.JacksonConfigDefinition.LOCAL_DATE_TIME_PATTERN;
+
 public class Json {
 
-    private static final String LOCAL_DATE_FORMAT = "yyyy-MM-dd";
+    private static final String LOCAL_DATE_FORMAT = LOCAL_DATE_PATTERN;
 
-    private static final String LOCAL_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String LOCAL_DATE_TIME_FORMAT = LOCAL_DATE_TIME_PATTERN;
 
     private static final ObjectMapper OBJECT_MAPPER;
 
@@ -31,22 +35,39 @@ public class Json {
         OBJECT_MAPPER = new ObjectMapper();
 
         // 配置反序列化时允许未知属性
-        OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        OBJECT_MAPPER.configure(
+                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+                JacksonConfigDefinition.FAIL_ON_UNKNOWN_PROPERTIES
+        );
 
         // 配置反序列化时允许基本类型为null
-        OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES);
+        OBJECT_MAPPER.configure(
+                DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES,
+                JacksonConfigDefinition.FAIL_ON_NULL_FOR_PRIMITIVES
+        );
 
         // 配置允许使用单引号
-        OBJECT_MAPPER.enable(JsonParser.Feature.ALLOW_SINGLE_QUOTES);
+        OBJECT_MAPPER.configure(
+                JsonParser.Feature.ALLOW_SINGLE_QUOTES,
+                JacksonConfigDefinition.ALLOW_SINGLE_QUOTES
+        );
 
         // 配置序列化时允许空Bean
-        OBJECT_MAPPER.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        OBJECT_MAPPER.configure(
+                SerializationFeature.FAIL_ON_EMPTY_BEANS,
+                JacksonConfigDefinition.FAIL_ON_EMPTY_BEANS
+        );
 
         // 配置序列化时只包含不为空的字段
-        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        OBJECT_MAPPER.setSerializationInclusion(
+                JsonInclude.Include.valueOf(JacksonConfigDefinition.JSON_INCLUDE_NON_NULL)
+        );
 
         // 配置反序列化时开启将浮点数解析成BigDecimal对象，不开启的时候默认会解析成Double对象
-        OBJECT_MAPPER.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
+        OBJECT_MAPPER.configure(
+                DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS,
+                JacksonConfigDefinition.USE_BIG_DECIMAL_FOR_FLOATS
+        );
 
         // Java日期格式序列化和反序列化配置
         JavaTimeModule javaTimeModule = new JavaTimeModule();

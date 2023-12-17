@@ -22,6 +22,9 @@
 
 每个starter的使用方法可参考`general-starter-sample`模块的示例。
 
+- `general-constant-starter`：常用的常量和配置定义，包含：
+  - 统一的日期时间格式定义
+  - 统一的Jackson配置定义
 - `log-spring-boot-starter`：日志记录、日志增加traceId实现链路追踪功能
 - `general-model-starter`：常用的返回值、错误码等模型定义
 - `general-model-spring-boot`：全局返回值包装、全局异常处理，同时集成了`general-model-starter`模块的功能

@@ -53,5 +53,10 @@
             <groupId>fun.pullock</groupId>
             <artifactId>feign-spring-boot-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>fun.pullock</groupId>
+            <artifactId>jackson-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

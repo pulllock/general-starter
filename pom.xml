@@ -22,6 +22,7 @@
         <module>feign-spring-boot-starter</module>
         <module>json-starter</module>
         <module>jackson-spring-boot-starter</module>
+        <module>general-constant-starter</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -87,6 +88,12 @@
             <dependency>
                 <groupId>fun.pullock</groupId>
                 <artifactId>json-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
+                <artifactId>general-constant-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
