@@ -4,10 +4,10 @@ import fun.pullock.starter.web.support.ClientHttpRequestLogInterceptor;
 import fun.pullock.starter.web.support.ClientHttpRequestTraceIdInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(WebProperties.class)
 public class WebAutoConfiguration {
 
