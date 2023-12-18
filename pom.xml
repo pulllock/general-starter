@@ -13,16 +13,21 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>log-spring-boot-starter</module>
+        <module>log-spring-boot-autoconfigure</module>
         <module>general-starter-sample</module>
         <module>general-model-starter</module>
-        <module>general-model-spring-boot-starter</module>
-        <module>web-spring-boot-starter</module>
+        <module>general-model-spring-boot-autoconfigure</module>
+        <module>web-spring-boot-autoconfigure</module>
         <module>general-starter-sample-server</module>
-        <module>feign-spring-boot-starter</module>
+        <module>feign-spring-boot-autoconfigure</module>
         <module>json-starter</module>
-        <module>jackson-spring-boot-starter</module>
+        <module>jackson-spring-boot-autoconfigure</module>
         <module>general-constant-starter</module>
+        <module>feign-spring-boot-starter</module>
+        <module>general-model-spring-boot-starter</module>
+        <module>jackson-spring-boot-starter</module>
+        <module>log-spring-boot-starter</module>
+        <module>web-spring-boot-starter</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -51,6 +56,12 @@
 
             <dependency>
                 <groupId>fun.pullock</groupId>
+                <artifactId>log-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
                 <artifactId>log-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -63,7 +74,19 @@
 
             <dependency>
                 <groupId>fun.pullock</groupId>
+                <artifactId>general-model-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
                 <artifactId>general-model-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
+                <artifactId>web-spring-boot-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -75,7 +98,19 @@
 
             <dependency>
                 <groupId>fun.pullock</groupId>
+                <artifactId>feign-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
                 <artifactId>feign-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
+                <artifactId>jackson-spring-boot-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
