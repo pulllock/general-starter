@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import fun.pullock.gneral.constant.JacksonConfigDefinition;
+import fun.pullock.starter.redis.lock.RedisLock;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -85,6 +86,15 @@ public class RedisCacheConfig {
         redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer());
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
+    }
+
+    /**
+     * Redis锁
+     * @return
+     */
+    @Bean
+    public RedisLock redisLock(RedisTemplate<String, Object> stringObjectRedisTemplate) {
+        return new RedisLock(stringObjectRedisTemplate, appName);
     }
 
     /**

@@ -324,6 +324,17 @@ general:
   - 指定key和value的序列化方式
   - 设置不缓存null值
 - 创建一个`RedisTemplate<String, Object>`类型的`RedisTemplate`Bean，名称：`stringObjectRedisTemplate`，并且自定义key和value的序列化方式。
+- 创建一个基于Redis的锁的Bean：RedisLock，提供以下两种方式的加锁解锁方式：
+  - 不带客户端ID参数的加锁解锁方式：
+    - `lock(String key, long timeout, long spinTimeout)`：基于自旋方式的阻塞加锁
+    - `lock(String key, long timeout)`：基于自旋方式的阻塞加锁
+    - `tryLock(String key, long timeout)`：非阻塞方式加锁
+    - `unlock(String key)`：解锁
+  - 带客户端ID参数的加锁解锁方式：
+    - `lock(String key, long timeout, String clientId, long spinTimeout)`：基于自旋方式的阻塞加锁
+    - `lock(String key, long timeout, String clientId)`：基于自旋方式的阻塞加锁
+    - `tryLock(String key, long timeout, String clientId)`：非阻塞方式加锁
+    - `unlock(String key, String clientId)`：解锁
 
 除了starter中自定义的`RedisTemplate<String, Object>`，系统中默认还有两个其他类型的：
 - `RedisTemplate<String, String>`类型的Bean，名称：`stringRedisTemplate`
