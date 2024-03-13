@@ -9,23 +9,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import fun.pullock.gneral.constant.JacksonConfigDefinition;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.List;
 
-import static fun.pullock.gneral.constant.JacksonConfigDefinition.LOCAL_DATE_PATTERN;
-import static fun.pullock.gneral.constant.JacksonConfigDefinition.LOCAL_DATE_TIME_PATTERN;
+import static fun.pullock.gneral.constant.JacksonConfigDefinition.*;
+import static java.time.format.DateTimeFormatter.ofPattern;
 
 public class Json {
-
-    private static final String LOCAL_DATE_FORMAT = LOCAL_DATE_PATTERN;
-
-    private static final String LOCAL_DATE_TIME_FORMAT = LOCAL_DATE_TIME_PATTERN;
 
     private static final ObjectMapper OBJECT_MAPPER;
 
@@ -68,30 +66,55 @@ public class Json {
                 DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS,
                 JacksonConfigDefinition.USE_BIG_DECIMAL_FOR_FLOATS
         );
-
-        // Java日期格式序列化和反序列化配置
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-
-        // 更改LocalDate类型字段序列化的格式为yyyy-MM-dd
-        javaTimeModule.addSerializer(
-                LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(LOCAL_DATE_FORMAT)));
-
-        // 更改LocalDate类型字段反序列化的格式为yyyy-MM-dd
-        javaTimeModule.addDeserializer(
-                LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(LOCAL_DATE_FORMAT)));
-
-        // 更改LocalDateTime类型字段序列化的格式为yyyy-MM-dd HH:mm:ss
-        javaTimeModule.addSerializer(
-                LocalDateTime.class,
-                new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(LOCAL_DATE_TIME_FORMAT)));
-
-        // 更改LocalDateTime类型字段反序列化的格式为yyyy-MM-dd HH:mm:ss
-        javaTimeModule.addDeserializer(
-                LocalDateTime.class,
-                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(LOCAL_DATE_TIME_FORMAT)));
-
-        OBJECT_MAPPER.registerModule(javaTimeModule);
+        // 注册自定义的时间序列化和反序列化格式
+        OBJECT_MAPPER.registerModule(customJavaTimeModule());
     }
+
+
+    /**
+     * 自定义Java时间序列化和反序列化格式
+     * @return
+     */
+    private static JavaTimeModule customJavaTimeModule() {
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        // LocalDateTime序列化格式
+        javaTimeModule.addSerializer(
+                LocalDateTime.class,
+                new LocalDateTimeSerializer(ofPattern(LOCAL_DATE_TIME_PATTERN))
+        );
+
+        // LocalDate序列化格式
+        javaTimeModule.addSerializer(
+                LocalDate.class,
+                new LocalDateSerializer(ofPattern(LOCAL_DATE_PATTERN))
+        );
+
+        // LocalTime序列化格式
+        javaTimeModule.addSerializer(
+                LocalTime.class,
+                new LocalTimeSerializer(ofPattern(LOCAL_TIME_PATTERN))
+        );
+
+        // LocalDateTime反序列化格式
+        javaTimeModule.addDeserializer(
+                LocalDateTime.class,
+                new LocalDateTimeDeserializer(ofPattern(LOCAL_DATE_TIME_PATTERN))
+        );
+
+        // LocalDate反序列化格式
+        javaTimeModule.addDeserializer(
+                LocalDate.class,
+                new LocalDateDeserializer(ofPattern(LOCAL_DATE_PATTERN))
+        );
+
+        // LocalTime反序列化格式
+        javaTimeModule.addDeserializer(
+                LocalTime.class,
+                new LocalTimeDeserializer(ofPattern(LOCAL_TIME_PATTERN))
+        );
+        return javaTimeModule;
+    }
+
 
     public static String toJson(Object object) {
         try {
