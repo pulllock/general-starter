@@ -1,24 +1,35 @@
 <!-- TOC -->
-* [1 说明](#1-说明)
-* [2 starter列表](#2-starter列表)
-* [3 starter使用方法](#3-starter使用方法)
-  * [3.1 log-spring-boot-starter使用方法](#31-log-spring-boot-starter使用方法)
-  * [3.2 general-model-starter使用方法](#32-general-model-starter使用方法)
-  * [3.3 general-model-spring-boot-starter](#33-general-model-spring-boot-starter)
-  * [3.4 web-spring-boot-starter](#34-web-spring-boot-starter)
-  * [3.5 feign-spring-boot-starter](#35-feign-spring-boot-starter)
-  * [3.5 json-starter](#35-json-starter)
-  * [3.6 jackson-spring-boot-starter](#36-jackson-spring-boot-starter)
-* [4 MDC实现日志追踪（添加traceId）](#4-mdc实现日志追踪添加traceid)
-  * [4.1 实现步骤](#41-实现步骤)
-* [5 logback格式](#5-logback格式)
+* [说明](#说明)
+* [统一规范](#统一规范)
+* [starter列表](#starter列表)
+* [starter使用方法](#starter使用方法)
+  * [log-spring-boot-starter使用方法](#log-spring-boot-starter使用方法)
+  * [general-model-starter使用方法](#general-model-starter使用方法)
+  * [general-model-spring-boot-starter](#general-model-spring-boot-starter)
+  * [web-spring-boot-starter](#web-spring-boot-starter)
+  * [feign-spring-boot-starter](#feign-spring-boot-starter)
+  * [json-starter](#json-starter)
+  * [jackson-spring-boot-starter](#jackson-spring-boot-starter)
+* [MDC实现日志追踪（添加traceId）](#mdc实现日志追踪添加traceid)
+  * [实现步骤](#实现步骤)
+* [logback格式](#logback格式)
 <!-- TOC -->
 
-# 1 说明
+# 说明
 
 包含了一些常用的自定义的starter，使用的时候可以将本项目作为POM导入，并选择合适的start进行引入使用。该项目使用[https://github.com/pulllock/parent-pom](https://github.com/pulllock/parent-pom)作为父模块，可以根据实际需要选择保留或者去除，使用前请先将parent-pom发布到仓库中。
 
-# 2 starter列表
+# 统一规范
+
+- 统一所有接口返回值格式，包括REST接口、Feign接口等等
+- 统一业务异常、错误码定义
+- 统一所有日期相关的格式，包括接口参数、接口返回值、缓存、消息等
+- 统一日志打印格式
+- 统一接口日志打印
+- 统一添加链路追踪唯一标识，包括REST接口请求、Feign接口请求、MQ消息、异步操作、自定义线程池、定时任务等等
+- 统一项目中使用的Jackson配置，包括REST接口的序列化和反序列化、Feign接口的序列化和反序列化、缓存对象时候的序列化和反序列化、消息的序列化和反序列化、JSON工具类的序列化和反序列化等
+
+# starter列表
 
 每个starter的使用方法可参考`general-starter-sample`模块的示例。
 
@@ -33,7 +44,7 @@
 - `json-starter`：基于Jackson的Json工具类，统一日期的序列化和反序列化格式等
 - `jackson-spring-boot-starter`：自定义使用Jackson序列化和反序列化格式等
 
-# 3 starter使用方法
+# starter使用方法
 
 所有的starter使用，首先需要将general-starter-parent进行导入，代码如下：
 
@@ -51,7 +62,7 @@
 </dependencyManagement>
 ```
 
-## 3.1 log-spring-boot-starter使用方法
+## log-spring-boot-starter使用方法
 
 引入此模块后可以有如下功能：
 
@@ -114,7 +125,7 @@ general:
 
 会在日志中自动添加TraceId。
 
-## 3.2 general-model-starter使用方法
+## general-model-starter使用方法
 
 在项目中引入`general-model-starter`模块：
 
@@ -164,7 +175,7 @@ public enum ErrorCode implements BaseErrorCode {
 
 - 如果需要抛出业务异常，请使用：`ServiceException`
 
-## 3.3 general-model-spring-boot-starter
+## general-model-spring-boot-starter
 
 `general-model-spring-boot-starter`会自动引入`general-model-starter`模块的功能，如果引用了`general-model-spring-boot-starter`模块后，可以不用再单独引用`general-model-starter`模块。
 
@@ -186,7 +197,7 @@ public enum ErrorCode implements BaseErrorCode {
   - 将`MappingJackson2HttpMessageConverter`放到最前面，可以解决方法返回String的时候统一包装报错的问题，另外需要注意，如果方法返回的是String，请在方法上添加`produces = MediaType.APPLICATION_JSON_VALUE`来进行配合使用
 - 会对全局异常进行处理，并使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.exception=false`进行关闭
 
-## 3.4 web-spring-boot-starter
+## web-spring-boot-starter
 
 `web-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
 
@@ -205,7 +216,7 @@ public enum ErrorCode implements BaseErrorCode {
 
 - 如果项目中没有配置`RestTemplate`，则会默认配置一个`RestTemplate`，并且会针对`RestTemplate`的请求在请求头中添加traceId，请求头的key为`x-request-id`；会打印请求和响应日志，如果不需要打印请求和响应日志，使用配置`general.starter.web.logEnable=false`进行关闭。 如果不使用`web-spring-boot-starter`模块中的`RestTemplate`，而使用自定义的`RestTemplate`，可以在自定义的`RestTemplate`中选择性的手动添加`support.web.starter.fun.pullock.ClientHttpRequestTraceIdInterceptor`以及`support.web.starter.fun.pullock.ClientHttpRequestLogInterceptor`来实现TraceId的添加以及日志的打印。
 
-## 3.5 feign-spring-boot-starter
+## feign-spring-boot-starter
 
 `feign-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
 
@@ -241,7 +252,7 @@ general:
 
 会针对使用了`Feign`方式的请求在请求头中自动添加TraceId。
 
-## 3.5 json-starter
+## json-starter
 
 在项目中引入`json-starter`模块：
 
@@ -256,7 +267,7 @@ general:
 
 引入该starter之后，在项目代码中直接使用`Json.xxxx()`对应方法即可。
 
-## 3.6 jackson-spring-boot-starter
+## jackson-spring-boot-starter
 
 引入此模块后可以有以下功能：
 
@@ -291,7 +302,7 @@ general:
       local-date-pattern: yyyy-MM-dd
 ```
 
-# 4 MDC实现日志追踪（添加traceId）
+# MDC实现日志追踪（添加traceId）
 
 日志追踪功能的流程如下：
 
@@ -302,7 +313,7 @@ general:
 5. 被调用的服务也使用第2步的过滤器（拦截器）来获取请求ID并设置到MDC中
 6. 异步请求、自定义线程池、定时调度等需要自定义配置MDC
 
-## 4.1 实现步骤
+## 实现步骤
 
 实现代码可参考`log-spring-boot-starter`模块。
 
@@ -313,7 +324,7 @@ general:
 5. `RestTemplate`调用上添加`TraceId`
 6. 异步请求、自定义线程池、定时调用
 
-# 5 logback格式
+# logback格式
 
 - `%lo{length}`、`%logger{length}`：输出日志的名称，length可以指定长度
 - `%C{length}`、`%class{length}`：输出类的全限定名，会对性能有影响
