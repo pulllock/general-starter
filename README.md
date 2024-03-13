@@ -43,6 +43,7 @@
 - `feign-spring-boot-starter`：给使用`Feign`方式的请求添加TraceId
 - `json-starter`：基于Jackson的Json工具类，统一日期的序列化和反序列化格式等
 - `jackson-spring-boot-starter`：自定义使用Jackson序列化和反序列化格式等
+- `redis-spring-boot-starter`：自定义Redis缓存配置、自定义RedisTemplate配置、提供基于Redis的锁等功能
 
 # starter使用方法
 
@@ -301,6 +302,32 @@ general:
       local-date-time-pattern: yyyy-MM-dd HH:mm:ss
       local-date-pattern: yyyy-MM-dd
 ```
+
+## redis-spring-boot-starter
+
+在项目中引入`redis-spring-boot-starter`模块：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>fun.pullock</groupId>
+        <artifactId>redis-spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+```
+
+引入该starter之后，会自动引入以下功能：
+
+- 自定义Redis缓存通用配置：
+  - 增加缓存命名空间前缀
+  - 设置全局默认缓存时间
+  - 指定key和value的序列化方式
+  - 设置不缓存null值
+- 创建一个`RedisTemplate<String, Object>`类型的`RedisTemplate`Bean，名称：`stringObjectRedisTemplate`，并且自定义key和value的序列化方式。
+
+除了starter中自定义的`RedisTemplate<String, Object>`，系统中默认还有两个其他类型的：
+- `RedisTemplate<String, String>`类型的Bean，名称：`stringRedisTemplate`
+- `RedisTemplate<Object, Object>`类型的Bean，名称：`redisTemplate`
 
 # MDC实现日志追踪（添加traceId）
 

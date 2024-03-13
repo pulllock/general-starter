@@ -28,6 +28,8 @@
         <module>jackson-spring-boot-starter</module>
         <module>log-spring-boot-starter</module>
         <module>web-spring-boot-starter</module>
+        <module>redis-spring-boot-starter</module>
+        <module>redis-spring-boot-autoconfigure</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -129,6 +131,18 @@
             <dependency>
                 <groupId>fun.pullock</groupId>
                 <artifactId>general-constant-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
+                <artifactId>redis-spring-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>fun.pullock</groupId>
+                <artifactId>redis-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
