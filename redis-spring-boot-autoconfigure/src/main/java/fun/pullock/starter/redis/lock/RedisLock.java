@@ -15,9 +15,9 @@ public class RedisLock {
 
     private static final Long SUCCESS = 1L;
 
-    private RedisTemplate<String, Object> stringObjectRedisTemplate;
+    private final RedisTemplate<String, Object> stringObjectRedisTemplate;
 
-    private String namespace;
+    private final String namespace;
 
 
     public RedisLock(RedisTemplate<String, Object> stringObjectRedisTemplate) {
