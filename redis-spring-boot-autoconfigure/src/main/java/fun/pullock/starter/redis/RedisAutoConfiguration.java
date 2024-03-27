@@ -38,7 +38,7 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 
 @AutoConfiguration
 @EnableCaching
-public class RedisCacheConfig {
+public class RedisAutoConfiguration {
 
     @Value("${spring.application.name}")
     private String appName;
