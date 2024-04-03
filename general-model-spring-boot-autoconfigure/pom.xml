@@ -40,5 +40,10 @@
             <groupId>fun.pullock</groupId>
             <artifactId>general-model-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>fun.pullock</groupId>
+            <artifactId>json-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

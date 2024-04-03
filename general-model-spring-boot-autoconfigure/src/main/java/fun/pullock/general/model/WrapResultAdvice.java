@@ -1,5 +1,6 @@
 package fun.pullock.general.model;
 
+import fun.pullock.starter.json.Json;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -46,10 +47,15 @@ public class WrapResultAdvice implements ResponseBodyAdvice<Object> {
             return new Result<>();
         }
 
-        if (!(body instanceof Result)) {
-            return new Result<>(body);
+        if (body instanceof Result<?>) {
+            return body;
         }
 
-        return body;
+        if (body instanceof String) {
+            response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+            return Json.toJson(new Result<>(body));
+        }
+
+        return new Result<>(body);
     }
 }

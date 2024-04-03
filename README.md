@@ -194,8 +194,6 @@ public enum ErrorCode implements BaseErrorCode {
 引入该starter之后，会自动引入以下功能：
 
 - 对返回值使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.result=false`进行关闭
-- 引入全局包装的同时，也会自动将`MappingJackson2HttpMessageConverter`转换器添加到转换器列表最前面，如果全局返回值包装功能关闭，则此功能也会自动关闭掉
-  - 将`MappingJackson2HttpMessageConverter`放到最前面，可以解决方法返回String的时候统一包装报错的问题，另外需要注意，如果方法返回的是String，请在方法上添加`produces = MediaType.APPLICATION_JSON_VALUE`来进行配合使用
 - 会对全局异常进行处理，并使用`Result`进行包装，如果不需要此功能可以使用配置`general.starter.wrap.exception=false`进行关闭
 
 ## web-spring-boot-starter
