@@ -251,6 +251,16 @@ general:
 
 会针对使用了`Feign`方式的请求在请求头中自动添加TraceId。
 
+自动将feign请求的Header数据传递到下游，如果需要关闭该功能，需要在配置文件application.yml中禁用Header传递功能：
+
+```yaml
+general:
+  starter:
+    feign:
+      header:
+        enabled: false
+```
+
 ## json-starter
 
 在项目中引入`json-starter`模块：

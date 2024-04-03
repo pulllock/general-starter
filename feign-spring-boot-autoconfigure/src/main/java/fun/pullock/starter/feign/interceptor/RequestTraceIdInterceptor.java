@@ -1,4 +1,4 @@
-package fun.pullock.starter.feign;
+package fun.pullock.starter.feign.interceptor;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

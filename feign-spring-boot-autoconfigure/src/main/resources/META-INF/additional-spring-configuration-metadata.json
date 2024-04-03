@@ -13,6 +13,12 @@
       "type": "java.lang.Boolean",
       "description": "是否启用Feign的Trace id功能.",
       "defaultValue": true
+    },
+    {
+      "name": "general.starter.feign.header.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用Feign请求的Header传递功能.",
+      "defaultValue": true
     }
   ]
 }
