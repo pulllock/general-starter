@@ -15,6 +15,11 @@ public class WrapResultAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
+        // springdoc的接口不需要进行包装
+        if (returnType.getDeclaringClass().getName().contains("org.springdoc")) {
+            return false;
+        }
+
         // 类上面有@RawResult注解，则不需要对结果进行包装
         if (returnType.getDeclaringClass().isAnnotationPresent(RawResult.class)) {
             return false;
