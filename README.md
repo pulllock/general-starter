@@ -261,6 +261,16 @@ general:
         enabled: false
 ```
 
+自动设置打印feign日志的级别为info级别，如果需要关闭该功能，需要在配置文件application.yml中禁用：
+
+```yaml
+general:
+  starter:
+    feign:
+      logger:
+        enabled: false
+```
+
 ## json-starter
 
 在项目中引入`json-starter`模块：

@@ -19,6 +19,12 @@
       "type": "java.lang.Boolean",
       "description": "是否启用Feign请求的Header传递功能.",
       "defaultValue": true
+    },
+    {
+      "name": "general.starter.feign.logger.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用Feign打印info日志功能.",
+      "defaultValue": true
     }
   ]
 }

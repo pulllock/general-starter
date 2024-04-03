@@ -1,8 +1,9 @@
 package fun.pullock.starter.feign;
 
+import feign.Logger;
 import fun.pullock.starter.feign.interceptor.RequestHeaderInterceptor;
 import fun.pullock.starter.feign.interceptor.RequestTraceIdInterceptor;
-import org.slf4j.Logger;
+import fun.pullock.starter.feign.logger.FeignSlf4jInfoLogger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(FeignProperties.class)
 public class FeignAutoConfiguration {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FeignProperties.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(FeignProperties.class);
 
     @Bean
     @ConditionalOnProperty(prefix = "general.starter.feign", value = {"trace.enabled"}, havingValue = "true", matchIfMissing = true)
@@ -28,5 +29,12 @@ public class FeignAutoConfiguration {
     public RequestHeaderInterceptor requestHeaderInterceptor() {
         LOGGER.info("General starter feign request header interceptor enabled");
         return new RequestHeaderInterceptor();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "general.starter.feign", value = {"logger.enabled"}, havingValue = "true", matchIfMissing = true)
+    public Logger logger() {
+        LOGGER.info("General starter feign info logger enabled");
+        return new FeignSlf4jInfoLogger();
     }
 }
