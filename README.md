@@ -219,7 +219,7 @@ public enum ErrorCode implements BaseErrorCode {
 
 `feign-spring-boot-starter`会自动引入`log-spring-boot-starter`模块。
 
-在项目中引入`web-spring-boot-starter`模块：
+在项目中引入`feign-spring-boot-starter`模块：
 
 ```
 <dependencies>
