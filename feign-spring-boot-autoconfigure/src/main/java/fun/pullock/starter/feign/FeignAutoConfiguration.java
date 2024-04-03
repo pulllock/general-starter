@@ -1,6 +1,8 @@
 package fun.pullock.starter.feign;
 
 import feign.Logger;
+import feign.codec.Decoder;
+import fun.pullock.starter.feign.decoder.FeignUnwrapDecoder;
 import fun.pullock.starter.feign.interceptor.RequestHeaderInterceptor;
 import fun.pullock.starter.feign.interceptor.RequestTraceIdInterceptor;
 import fun.pullock.starter.feign.logger.FeignSlf4jInfoLogger;
@@ -36,5 +38,12 @@ public class FeignAutoConfiguration {
     public Logger logger() {
         LOGGER.info("General starter feign info logger enabled");
         return new FeignSlf4jInfoLogger();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "general.starter.feign", value = {"decoder.enabled"}, havingValue = "true", matchIfMissing = true)
+    public Decoder decoder() {
+        LOGGER.info("General starter feign decoder enabled");
+        return new FeignUnwrapDecoder();
     }
 }

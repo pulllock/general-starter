@@ -25,6 +25,12 @@
       "type": "java.lang.Boolean",
       "description": "是否启用Feign打印info日志功能.",
       "defaultValue": true
+    },
+    {
+      "name": "general.starter.feign.decoder.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用Feign自定义的Decoder功能.",
+      "defaultValue": true
     }
   ]
 }
