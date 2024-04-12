@@ -13,6 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import fun.pullock.gneral.constant.JacksonConfigDefinition;
 import fun.pullock.starter.redis.lock.RedisLock;
+import fun.pullock.starter.redis.serializer.RedisKeySerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -75,11 +76,11 @@ public class RedisAutoConfiguration {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         // key序列化方式：String
-        redisTemplate.setKeySerializer(StringRedisSerializer.UTF_8);
+        redisTemplate.setKeySerializer(new RedisKeySerializer(appName));
         // value使用自定义序列化方式
         redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer());
         // Hash的key序列化方式：String
-        redisTemplate.setHashKeySerializer(StringRedisSerializer.UTF_8);
+        redisTemplate.setHashKeySerializer(new RedisKeySerializer(appName));
         // Hash的value使用自定义序列化方式
         redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer());
         redisTemplate.afterPropertiesSet();
