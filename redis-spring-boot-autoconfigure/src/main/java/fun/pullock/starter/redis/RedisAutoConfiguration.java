@@ -93,7 +93,7 @@ public class RedisAutoConfiguration {
      */
     @Bean
     public RedisLock redisLock(RedisTemplate<String, Object> stringObjectRedisTemplate) {
-        return new RedisLock(stringObjectRedisTemplate, appName);
+        return new RedisLock(stringObjectRedisTemplate);
     }
 
     /**

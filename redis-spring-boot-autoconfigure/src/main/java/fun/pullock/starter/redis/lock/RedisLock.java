@@ -17,23 +17,15 @@ public class RedisLock {
 
     private final RedisTemplate<String, Object> stringObjectRedisTemplate;
 
-    private final String namespace;
-
-
     public RedisLock(RedisTemplate<String, Object> stringObjectRedisTemplate) {
-        this(stringObjectRedisTemplate, null);
-    }
-
-    public RedisLock(RedisTemplate<String, Object> stringObjectRedisTemplate, String namespace) {
         this.stringObjectRedisTemplate = stringObjectRedisTemplate;
-        this.namespace = namespace;
     }
 
     /**
      * 阻塞加锁
      * @param key 锁的key
-     * @param timeout 锁的超时时间
-     * @param spinTimeout 自旋超时时间
+     * @param timeout 锁的超时时间，单位：毫秒
+     * @param spinTimeout 自旋超时时间，单位：毫秒
      * @return 是否加锁成功
      */
     public boolean lock(String key, long timeout, long spinTimeout) {
@@ -42,7 +34,6 @@ public class RedisLock {
         if (key == null || key.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        key = getKey(key);
 
         long expire = now + spinTimeout;
         boolean acquired;
@@ -59,9 +50,9 @@ public class RedisLock {
     /**
      * 阻塞加锁
      * @param key 锁的key
-     * @param timeout 锁的超时时间
+     * @param timeout 锁的超时时间，单位：毫秒
      * @param clientId 加锁的客户端ID
-     * @param spinTimeout 自旋超时时间
+     * @param spinTimeout 自旋超时时间，单位：毫秒
      * @return 是否加锁成功
      */
     public boolean lock(String key, long timeout, String clientId, long spinTimeout) {
@@ -70,7 +61,6 @@ public class RedisLock {
         if (key == null || key.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        key = getKey(key);
 
         long expire = now + spinTimeout;
         boolean acquired;
@@ -87,14 +77,13 @@ public class RedisLock {
     /**
      * 阻塞加锁
      * @param key 锁的key
-     * @param timeout 锁的超时时间
+     * @param timeout 锁的超时时间，单位：毫秒
      * @return 是否加锁成功
      */
     public boolean lock(String key, long timeout) {
         if (key == null || key.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        key = getKey(key);
 
         boolean acquired;
         while (!(acquired = tryLock(key, timeout))) {
@@ -110,7 +99,7 @@ public class RedisLock {
     /**
      * 阻塞加锁
      * @param key 锁的key
-     * @param timeout 锁的超时时间
+     * @param timeout 锁的超时时间，单位：毫秒
      * @param clientId 加锁的客户端ID
      * @return 是否加锁成功
      */
@@ -118,7 +107,6 @@ public class RedisLock {
         if (key == null || key.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        key = getKey(key);
 
         boolean acquired;
         while (!(acquired = tryLock(key, timeout, clientId))) {
@@ -134,7 +122,7 @@ public class RedisLock {
     /**
      * 非阻塞加锁
      * @param key 锁的key
-     * @param timeout 锁的超时时间
+     * @param timeout 锁的超时时间，单位：毫秒
      * @return 是否加锁成功
      */
     public boolean tryLock(String key, long timeout) {
@@ -142,7 +130,6 @@ public class RedisLock {
             throw new IllegalArgumentException();
         }
 
-        key = getKey(key);
         Boolean result = stringObjectRedisTemplate.opsForValue().setIfAbsent(key, "lock", Duration.ofMillis(timeout));
         return Boolean.TRUE.equals(result);
     }
@@ -150,7 +137,7 @@ public class RedisLock {
     /**
      * 非阻塞加锁
      * @param key 锁的key
-     * @param timeout 锁的超时时间
+     * @param timeout 锁的超时时间，单位：毫秒
      * @param clientId 加锁的客户端ID
      * @return 是否加锁成功
      */
@@ -163,7 +150,6 @@ public class RedisLock {
             throw new IllegalArgumentException();
         }
 
-        key = getKey(key);
         Boolean result = stringObjectRedisTemplate.opsForValue().setIfAbsent(key, clientId, Duration.ofMillis(timeout));
         return Boolean.TRUE.equals(result);
     }
@@ -178,7 +164,6 @@ public class RedisLock {
             throw new IllegalArgumentException();
         }
 
-        key = getKey(key);
         Boolean result = stringObjectRedisTemplate.delete(key);
         return Boolean.TRUE.equals(result);
     }
@@ -194,22 +179,7 @@ public class RedisLock {
             throw new IllegalArgumentException();
         }
 
-        key = getKey(key);
         Long result = stringObjectRedisTemplate.execute(UNLOCK_LUA_SCRIPT, Collections.singletonList(key), clientId);
         return SUCCESS.equals(result);
-    }
-
-    private String getKey(String key) {
-        if (namespace == null || namespace.isEmpty()) {
-            return key;
-        }
-
-        String prefix = String.format("%s::", namespace);
-
-        if (key.startsWith(prefix)) {
-            return key;
-        }
-
-        return String.format("%s%s", prefix, key);
     }
 }
